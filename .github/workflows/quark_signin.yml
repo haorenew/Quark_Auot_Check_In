@@ -6,12 +6,16 @@ on:
     - cron: '0 5 * * *'   # 北京时间 13:00 (UTC+8 -> UTC+5)
   workflow_dispatch:      # 允许手动触发
 
+# 全局强制使用 Node.js 24，解决官方插件的弃用警告
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   quark-sign-in:
     runs-on: ubuntu-latest
     steps:
       - name: 检出代码
-        uses: actions/checkout@v4  # 升级 v4，解决 Node.js 弃用警告
+        uses: actions/checkout@v4  # 升级 v4
 
       - name: 恢复签到成功记录缓存
         id: cache-restore
